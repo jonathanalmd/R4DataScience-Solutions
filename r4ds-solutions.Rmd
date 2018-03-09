@@ -1,0 +1,16 @@
+---
+title: "R for Data Science Solutions"
+author: "Jonathan Mendes de Almeida"
+output:
+    pdf_document
+---
+
+Solutions to the exercises in __[R for Data Science (Garrett Grolemund & Hadley Wickham)](http://r4ds.had.co.nz/index.html).__
+
+# Chapter 1
+No exercises in this chapter.
+
+# Chapter 2
+No exercises in this chapter.
+
+# Chapter 3
