@@ -1,8 +1,9 @@
 ---
-title: "R for Data Science Solutions"
+title: "R for Data Science - Solutions Manual"
 author: "Jonathan Mendes de Almeida"
 output:
-    pdf_document
+    pdf_document:
+      latex_engine: xelatex
 ---
 
 Solutions to the exercises in __[R for Data Science (Garrett Grolemund & Hadley Wickham)](http://r4ds.had.co.nz/index.html).__
@@ -14,3 +15,90 @@ No exercises in this chapter.
 No exercises in this chapter.
 
 # Chapter 3
+## Prerequisites
+
+```{r eval = TRUE}
+library(tidyverse)
+```
+
+### To install tidyverse library:
+
+```{r eval = FALSE}
+install.packages('tidyverse')
+```
+
+## mpg data frame
+
+```{r eval = TRUE}
+mpg = ggplot2::mpg
+mpg
+```
+
+* **displ**: car's engine size (in litres)
+* **hwy**: car's fuel efficiency on the highway (in miles per gallon - mpg).
+
+## 3.2.4 Exercises
+> *1.* Run **ggplot(data = mpg)**. What do you see?
+
+```{r eval = TRUE}
+ggplot(data = mpg)
+```
+
+**R)** An empty plot. To see some nice plots we should add some geom_function to map some points. Add a good caption for each axis is great to make your plot easier to read and understand!
+
+> *2.* How many rows are in **mpg**? How many columns?
+
+```{r eval = TRUE}
+nrow(mpg)
+ncol(mpg)
+```
+
+**R)** 234 rows and 11 columns
+
+
+Alternative method to check the number of rows and columns of a data frame:
+
+```{r eval = TRUE}
+glimpse(mpg)
+```
+
+
+> *3.* What does the __drv__ variable describe? Read the help for ?mpg to find out.
+_run ?mpg in RStudio console and check the 'help' tab)_
+
+```{r eval = TRUE}
+mpg['drv']
+```
+
+**R)** There are 3 possible values for __drv__ variable (**variable** : _description_):
+ 
+* **f**: _front-wheel drive_
+
+* **r**: _rear wheel drive_
+
+* **4**: _4wd_
+
+> *4.* Make a scatterplot of **hwy** vs **cyl**
+
+```{r eval = TRUE}
+ggplot(data = mpg, aes(x = hwy, y = cyl)) + geom_point(aes(colour = class))
+```
+
+**R)** We add a definition of the data used in x,y axis and add geom_point function mapping these points. Here we are using aes(colour = class) to plot using a different colour for each class present in our data frame (car type: 2seater, compact, midsize, minivan, pickup, subcompact, suv).
+
+> *5.* What happens if you make a scatterplot of *class* __vs__ *drv*? Why is the plot not useful?
+
+```{r eval = TRUE}
+ggplot(data = mpg, aes(x = class, y = drv)) + geom_point()
+```
+
+**R)** This plot is not useful because **class** and **drv** are factor variables. Each possible value of these two variables is limited by a set (r, f and 4 are the possible values for **drv**  and 2seater, compact, midsize, minivan, pickup, subcompact and suv are the possible values for **class**). This plot is pretty useless to perform a data analysis.
+
+
+
+
+
+
+
+
+
