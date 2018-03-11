@@ -253,4 +253,44 @@ ggplot(data = mpg) +
 **(Answer)** As you can see in these two plots, `.` ignores a dimension for faceting (x or y axis).
 
 ### Exercise 4
+> Take the first faceted plot in this section:
 
+```{r eval = TRUE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+> What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
+
+Let's run this code (again):
+
+```{r eval = TRUE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+**(Answer)** Using faceting could be a great option to visualize you data if the number of classes (categorical variable) is not so large because faceting permits to visualize each category separated and maybe this can show the information about your dataset better than when using colour aesthetic (if you want to see the results for each category or a set of categories, for example). However, for larger datasets we might face with a categorical variable with many possible results and for this situation is better to visualize the data using colour aesthetic. The function you use depends on your dataset.
+
+### Exercise 5
+> Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` argument?
+
+**(Answer)** `nrow` and `ncol` define the number of rows and columns and this is necessary since facet_wrap only facets on one variable. You also can change the layout of the individual panels with `scales`, `switch`, `as.table` or `dir`, for example.
+
+Let's see what happens when we set `ncol = 7`, which is the number of different car classes (`class`).
+
+```{r eval = TRUE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, ncol = 7)
+```
+
+Really cool, right?
+
+On the other hand, `nrow` and `ncol` are not necessary in `face_grid()` because the number of rows and columns are already determined depending only on the variables that were chosen (number of unique values of the variables used). 
+
+### Exercise 6
+> When using `facet_grid()` you should usually put the variable with more unique levels in the columns. Why?
+
+This is usually used in this way just to be easier to visualize. Is better to see the plot larger horizontally than vertically. So, using the variable with more unique levels in the columns the plot will grow horizontally. On the other hand, if this variable is used in the rows, the plot will grow vertically and for humans, usually this is worse to visualize.
