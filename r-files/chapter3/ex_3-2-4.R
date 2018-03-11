@@ -17,7 +17,7 @@ glimpse(mpg)
 
 # Exercise 3
 mpg['drv']
-# There are 3 possible values for __drv__ variable (**variable** : _description_):
+# There are 3 possible values for __drv__ variable. The **drv** variable describes the traction control system. 
 
 
 # Exercise 4
