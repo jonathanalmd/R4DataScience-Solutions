@@ -33,4 +33,4 @@ vignettes/*.pdf
 *.knit.md
 
 # pdf files
-*.pdf
+#########*.pdf
