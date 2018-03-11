@@ -40,23 +40,23 @@ mpg
 ## 3.2.4 Exercises
 
 ### Exercise 1
->  Run **ggplot(data = mpg)**. What do you see?
+>  Run `ggplot(data = mpg)`. What do you see?
 
 ```{r eval = TRUE}
 ggplot(data = mpg)
 ```
 
-**R)** An empty plot. To see some nice plots we should add some geom_function to map some points. Add a good caption for each axis is great to make your plot easier to read and understand!
+**(Answer)** An empty plot. To see some nice plots we should add some geom_function to map some points. Add a good caption for each axis is great to make your plot easier to read and understand!
 
 ### Exercise 2
-> How many rows are in **mpg**? How many columns?
+> How many rows are in `mpg`? How many columns?
 
 ```{r eval = TRUE}
 nrow(mpg)
 ncol(mpg)
 ```
 
-**R)** 234 rows and 11 columns
+**(Answer)** 234 rows and 11 columns
 
 
 Alternative method to check the number of rows and columns of a data frame:
@@ -66,14 +66,14 @@ glimpse(mpg)
 ```
 
 ### Exercise 3
-> What does the __drv__ variable describe? Read the help for ?mpg to find out.
+> What does the `drv` variable describe? Read the help for ?mpg to find out.
 _run ?mpg in RStudio console and check the 'help' tab)_
 
 ```{r eval = TRUE}
 mpg['drv']
 ```
 
-**R)** The **drv** variable describes the traction control system. There are 3 possible values for **drv** variable (**variable** : _description_):
+**(Answer)** The **drv** variable describes the traction control system. There are 3 possible values for `drv` variable (**variable** : _description_):
  
 * **f**: _front-wheel drive_
 
@@ -82,13 +82,13 @@ mpg['drv']
 * **4**: _4wd_
 
 ### Exercise 4
-> Make a scatterplot of **hwy** vs **cyl**
+> Make a scatterplot of `hwy` vs `cyl`
 
 ```{r eval = TRUE}
 ggplot(data = mpg) + geom_point(mapping = aes(x = hwy, y = cyl, colour = class))
 ```
 
-**R)** We add a definition of the data used in x,y axis and add geom_point function mapping these points. Here we are using aes(colour = class) (to associate the name of the aesthetic with a variable to display) to plot using a different colour for each class present in our data frame (car type: 2seater, compact, midsize, minivan, pickup, subcompact, suv).
+**(Answer)** We add a definition of the data used in x,y axis and add geom_point function mapping these points. Here we are using aes(colour = class) (to associate the name of the aesthetic with a variable to display) to plot using a different colour for each class present in our data frame (car type: 2seater, compact, midsize, minivan, pickup, subcompact, suv).
 
 ### Exercise 5
 > What happens if you make a scatterplot of *class* __vs__ *drv*? Why is the plot not useful?
@@ -97,7 +97,7 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = hwy, y = cyl, colour = class))
 ggplot(data = mpg, aes(x = class, y = drv)) + geom_point()
 ```
 
-**R)** This plot is not useful because **class** and **drv** are factor variables. Each possible value of these two variables is limited by a set (r, f and 4 are the possible values for **drv**  and 2seater, compact, midsize, minivan, pickup, subcompact and suv are the possible values for **class**). This plot is pretty useless to perform a data analysis.
+**(Answer)** This plot is not useful because `class` and `drv` are factor variables. Each possible value of these two variables is limited by a set (r, f and 4 are the possible values for `drv`  and 2seater, compact, midsize, minivan, pickup, subcompact and suv are the possible values for `class`). This plot is pretty useless to perform a data analysis.
 
 ## 3.3.1 Exercises
 
@@ -108,7 +108,7 @@ ggplot(data = mpg, aes(x = class, y = drv)) + geom_point()
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
 ```
 
-**R)** The **color** argument is not in the correct place. The **color** argument is included inside the **mapping** argument so it is treated as an aesthetic, which receives a variable (like we used **class** as argument in previous exercise). In this case, the **color** argument is interpreted as a variable with only one value (which is "blue" in this case).
+**(Answer)** The `color` argument is not in the correct place. The `color` argument is included inside the `mapping` argument so it is treated as an aesthetic, which receives a variable (like we used `class` as argument in previous exercise). In this case, the `color` argument is interpreted as a variable with only one value (which is "blue" in this case).
 
 If the goal is to plot all these points using blue, the correct code is:
 
@@ -118,15 +118,15 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), color = "blue
 
 
 ### Exercise 2
-> Which variables in **mpg** are categorical? Which variables are continuous? (**Hint:** _type **?mpg** (using RStudio console) to read the documentation for the dataset_). How can you see this information when you run **mpg**?
+> Which variables in `mpg` are categorical? Which variables are continuous? (**Hint:** _type **?mpg** (using RStudio console) to read the documentation for the dataset_). How can you see this information when you run `mpg`?
 
-If you are not able to classify each variable as categorical or continuous by checking the description of each variable (by typing **?mpg**) you can print the data frame and R will answer this for you (another way to check this information is using the glimpse() function). 
+If you are not able to classify each variable as categorical or continuous by checking the description of each variable (by typing `?mpg`) you can print the data frame and R will answer this for you (another way to check this information is using the glimpse() function). 
 
 ```{r eval = TRUE}
 mpg
 ```
 
-As you can see, the information is given at top of each column within '<>'. If the variable is categorical, it will have a class of 'character' (represented as **<chr>**). So, once you know where to find this is information is easy to anwser which variable is categorical and which is continuous.  
+As you can see, the information is given at top of each column within '<>'. If the variable is categorical, it will have a class of 'character' (represented as `<chr>`). So, once you know where to find this is information is easy to anwser which variable is categorical and which is continuous.  
 
 * **model**: categorical
 
@@ -149,7 +149,7 @@ As you can see, the information is given at top of each column within '<>'. If t
 * **class**: categorical
 
 ### Exercise 3
-> Map a continuous variable to **color**, **size** and **shape**. How do these aesthetics behave differently for **categorical** _vs_ **continuous** variables?
+> Map a continuous variable to `color`, `size` and `shape`. How do these aesthetics behave differently for **categorical** _vs_ **continuous** variables?
 
 _Using the varible **cty** (city miles per gallon) - which is a continuous variable._
 
@@ -161,7 +161,7 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = cty))
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, size = cty))
 ```
 
-**R)** When mapped to colour: the continuous variable uses a scale that varies using tons of blue (light to dark). 
+**(Answer)** When mapped to colour: the continuous variable uses a scale that varies using tons of blue (light to dark). 
 
 When mapped to size: the continuous variable uses a scale that varies using different sizes.
 
@@ -183,20 +183,74 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = cty, 
 ```
 
 ### Exercise 5
-> What does the **stroke** aesthetic do? What shapes does it work with? (Hint: use **?geom_point** and check the 'help' tab)
+> What does the `stroke` aesthetic do? What shapes does it work with? (Hint: use `?geom_point` and check the 'help' tab)
 
 ```{r eval = TRUE}
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, shape = drv), stroke = 5)
 ```
 
-**R)** The **stroke** aesthetic is used to modify the width of the border. 
+**(Answer)** The `stroke` aesthetic is used to modify the width of the border. 
 
 ### Exercise 6
-> What happens if you map an aesthetic to something other than a variable name, like **aes(colour = displ < 5)**?
+> What happens if you map an aesthetic to something other than a variable name, like `aes(colour = displ < 5)`?
 
-**R)** The colour indicates if each **displ** value is less than 4 or not. The ggpplot function will assign the result of this expression (displ < 5, which is going to be true or false) to a temporary variable and then will assign a colour for values > 4 and a different colour for values < 4). This is easy visualize by checking the results of this code:
+**(Answer)** The colour indicates if each `displ` value is less than 4 or not. The ggpplot function will assign the result of this expression (displ < 5, which is going to be true or false) to a temporary variable and then will assign a colour for values > 5 and a different colour for values < 5). This is easy visualize by checking the results of this code:
 
 ```{r eval = TRUE}
 ggplot(data = mpg) + geom_point(mapping = aes(x = hwy, y = cyl, colour = displ < 4))
 ```
+
+## 3.5.1 Exercises
+
+### Exercise 1
+> What happens if you facet on a continuous variable?
+
+**(Answer)** To remember the variables classification:
+
+Continuous  | Categorical
+----------- | -----------
+displ       | model
+year        | trans
+cyl         | drv
+cty         | fl
+hwy         | class
+
+Let's plot and see what happens!
+
+```{r eval = TRUE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ displ, nrow = 2)
+```
+
+As you can see, it converts the continuous variable to a factor and then creates facets for all unique values of it. Facets is particularly useful for **categorical** variables.
+
+### Exercise 2
+> What do the empty cells in plot with **facet_grid(drv ~ cyl)** mean? How do they relate to this plot?
+
+```{r eval = TRUE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_grid(drv ~ cyl)
+```
+
+**(Answer)** The empty cells means that there are no values for the combination of `drv` and `cyl`. In this case, there are no cars which the traction control system is 4wd and the number of cylinders is 5, for example (you can check the same for the two others empty cells).
+
+### Exercise 3
+> What plots does the following code make? What does `.` do?
+
+Let's see!
+```{r eval = TRUE}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+**(Answer)** As you can see in these two plots, `.` ignores a dimension for faceting (x or y axis).
+
+### Exercise 4
 
