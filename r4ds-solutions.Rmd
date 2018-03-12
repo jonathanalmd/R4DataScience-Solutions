@@ -10,6 +10,11 @@ output:
 
 Solutions to the exercises in [**R for Data Science (Garrett Grolemund & Hadley Wickham)**](http://r4ds.had.co.nz/index.html). The individual R files are available in my github - [**@jonyddev**](https://github.com/jonyddev) - repository called [**R4DataScience-Solutions**](https://github.com/jonyddev/R4DataScience-Solutions). _If you have any questions about my answers to these exercises do not hesitate to enter in contact with me_.
 
+## Useful links
+* [**RStudio Cheat Sheets**](https://www.rstudio.com/resources/cheatsheets/)
+* [**ggplot2 Documentation**](docs.ggplot2.org)
+* [**ggplot2 Cheat Sheet**](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf)
+
 ## Prerequisites
 ```{r eval = TRUE}
 library(tidyverse)
@@ -117,7 +122,7 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), color = "blue
 ### Exercise 2
 > Which variables in `mpg` are categorical? Which variables are continuous? (**Hint:** _type **?mpg** (using RStudio console) to read the documentation for the dataset_). How can you see this information when you run `mpg`?
 
-If you are not able to classify each variable as categorical or continuous by checking the description of each variable (by typing `?mpg`) you can print the data frame and R will answer this for you (another way to check this information is using the glimpse() function). 
+If you are not able to classify each variable as categorical or continuous by checking the description of each variable (by typing `?mpg`) you can print the data frame and R will answer this for you (another way to check this information is using the `glimpse()` function). 
 
 ```{r eval = TRUE}
 mpg
@@ -400,10 +405,101 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 _Easy peasy lemon squeezy_.
 
+## 3.7.1 Exercises
 
+### Exercise 1
+> What is the default `geom` associated with `stat_summary()`? How could you rewrite the previous plot to use that `geom` function instead of the `stat` function?
 
+**(Answer)** By typing `?stat_summary()` you are able to see the documentation for this function. So, is easy to notice that the default `geom` associated with `stat_summary()` is the `geom_pointrange()` geom, which uses `ìdentity` as the dafault `stat`. To use this `geom` to plot a `summary`, just override the default stat by using `stat = 'summary'` as follows:
 
+```{r eval = TRUE}
+ggplot(data = diamonds) + 
+  geom_pointrange(
+    mapping = aes(x = cut, y = depth),
+    stat = 'summary'
+  )
+```
+ 
+Howerver, as you can notice that this last plot is a little bit different compared to the plot created with `stat_summary()`. It is because the default for `stat_summary()` is to use `mean` and `sd` to plt (the point and the range of the line). To fix this, just add the values used in the example (`fun.min = min`, `fun.max = max` and `fun.y = median`):
 
+```{r eval = TRUE}
+ggplot(data = diamonds) + 
+  geom_pointrange(
+    mapping = aes(x = cut, y = depth),
+    stat = 'summary',
+    fun.ymin = min,
+    fun.ymax = max,
+    fun.y = median
+  )
+```
+
+_Voilà!_
+
+### Exercise 2
+> What does `geom_col()` do? How is it different to `geom_bar()`?
+
+**(Answer)** The answer for this question is inside `geom_col()` documentation. By typing `?geom_col()` - _I encourage you to always read the documentation for the function you want to use_ - is possible to see there are two types of bar charts: `geom_bar()` makes the height of the bar proportional to the number of classes in each group (or if the `weight` aesthetic is supplied, the sum of the `weights`). If you want the heights of the bars to represent values in the data, use `geom_col()` instead. `geom_bar()` uses `stat_count` by default (it counts the number of cases at each `x` position). In other hand, `geom_col()` uses `stat_identity`, which leaves the data as is. 
+
+### Exercise 3
+> Most `geoms` and `stats` come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?
+
+**(Answer)** The answer to this question is inside `ggplot2` documentation. I highly recommend to read the `ggplot2` documentation available [**here**](docs.ggplot2.org).
+
+### Exercise 4
+> What variables does `stat_smooth()` compute? What parameters control its behaviour?
+
+**(Answer)** _This is the last time I am going to recommend you to always read the documentation for the functions you use._ The answer for this question is easy to find by checking `stat_smooth()` documentation. The variables computed by `stat_smooth()` are:
+
+* `y`: predicted value
+* `ymin`: lower pointwise confidence interval around the mean
+* `ymax`: upper pointwise confidence interval around the mean
+* `se`: standard error
+
+And the arguments used to control its behaviour are:
+
+* `mapping`
+* `data`
+* `position`
+* `...`
+* `method`
+* `formula`
+* `se`
+* `na.rm`
+* `show.legend`
+* `inherit.aes`
+* `geom, stat`
+* `n`
+* `span`
+* `fullrange`
+* `level`
+* `method.args`
+
+The most important argument is `mapping`, which determines which method will be used to calculate the predictions and confidence interval. To check the description for each argument, type `?stat_smooth()`.
+
+### Exercise 5
+> In our proportion bar chart, we need to set `group = 1`. Why? In other words what is the problem with these two graphs?
+
+_I am no sure if my answer is one hundred percent correct for this exercise._
+
+```{r eval = TRUE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop..))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
+```
+
+**(Answer)** `group = 1` is used to set the proportion (y axis) correctly. As you can see in these two plots above, the proportion for all diamonds are equals one (and this is not what we want). So the correct code would be something like this:
+
+```{r eval = TRUE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
+```
+
+## 3.9.1 Exercises
+
+### Execise 1
 
 
 
