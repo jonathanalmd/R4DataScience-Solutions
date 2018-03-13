@@ -497,7 +497,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
 ```
 
-## 3.9.1 Exercises
+## 3.8.1 Exercises
 
 ### Execise 1
 > What is the problem with this plot? How could you improve it?
