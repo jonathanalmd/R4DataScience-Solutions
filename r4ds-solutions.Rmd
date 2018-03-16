@@ -153,7 +153,7 @@ As you can see, the information is given at top of each column within '<>'. If t
 ### Exercise 3
 > Map a continuous variable to `color`, `size` and `shape`. How do these aesthetics behave differently for **categorical** _vs_ **continuous** variables?
 
-_Using the varible **cty** (city miles per gallon) - which is a continuous variable._
+**(Answer)** _Using the varible **cty** (city miles per gallon) - which is a continuous variable._
 
 ```{r eval = TRUE}
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = cty))
@@ -163,13 +163,33 @@ ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = cty))
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, size = cty))
 ```
 
-**(Answer)** When mapped to colour: the continuous variable uses a scale that varies using tons of blue (light to dark). 
+When **mapped to colour**: the continuous variable uses a scale that varies using tons of blue (light to dark). 
 
-When mapped to size: the continuous variable uses a scale that varies using different sizes.
+When **mapped to size**: the continuous variable uses a scale that varies using different sizes.
 
 These information is easy to verify by checking these two previous plots. 
 
-However, when mapped to shape, R will give an error (a continuous variable can not be mapped to shape). This is because shapes does not have a natural order.
+However, when **mapped to shape**, R will give an error (a continuous variable can not be mapped to shape). This is because shapes does not have a natural order.
+
+_Now, let's plot using `class` - which is a categorical variable._
+
+```{r eval = TRUE}
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = class))
+```
+
+```{r eval = TRUE}
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+
+```{r eval = TRUE}
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+When **maped to colour**: each category from `class` variable is representedy by a different colour. 
+
+When **mapped to size**: each category from `class` variable is represented by a diffrenet size. This aesthetic with a categorical variable is a **bad idea**. 
+
+When **mapped to shape**: each category from `class` variable is represented by a different shape. For categorical variables with more than 6 categories, this aesthetics is not a good idea, since there is only 6 different shapes.
 
 ###  Exercise 4
 > What happens if you map the same variable to multiple aesthetics?
