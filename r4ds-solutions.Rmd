@@ -195,10 +195,10 @@ When **mapped to shape**: each category from `class` variable is represented by 
 > What happens if you map the same variable to multiple aesthetics?
 
 ```{r eval = TRUE}
-ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = displ, size = hwy))
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = cty, size = cty))
 ```
 
-Mapping one variable to multiple aesthetics is not a good idea because is redundant. Using different variables and the plot will show more information about your dataset. The next plot uses four different variables in aesthetics, which gives useful aditional information when compared to all the previous plots.
+Mapping one variable to multiple aesthetics is not a good idea because is redundant (however, the plot looks pretty cool). Using different variables and the plot will show more information about your dataset. The next plot uses four different variables in aesthetics, which gives useful aditional information when compared to all the previous plots.
 
 ```{r eval = TRUE}
 ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, colour = cty, size = cyl))
