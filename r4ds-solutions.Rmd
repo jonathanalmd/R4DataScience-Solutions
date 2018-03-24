@@ -1,8 +1,8 @@
 ---
-title: "R for Data Science - Solutions Manual"
-author: ["Jonathan Mendes de Almeida", "jonathanalmd@gmail.com", "jonathan@aluno.unb.br","@jonyddev (github)"]
+title: 'R for Data Science - Solutions Manual'
+author: ['Jonathan Mendes de Almeida', 'jonathanalmd@gmail.com', 'jonathan@aluno.unb.br','@jonyddev (github)']
 lang: en
-date: "`r format(Sys.time(), '%b %d, %Y')`"
+date: '`r format(Sys.time(), '%b %d, %Y')`'
 output:
     pdf_document:
       latex_engine: xelatex
@@ -108,15 +108,15 @@ ggplot(data = mpg, aes(x = class, y = drv)) + geom_point()
 > What's gone wrong with this code? Why are the points not blue?
 
 ```{r eval = TRUE}
-ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy, color = 'blue'))
 ```
 
-**(Answer)** The `color` argument is not in the correct place. The `color` argument is included inside the `mapping` argument so it is treated as an aesthetic, which receives a variable (like we used `class` as argument in previous exercise). In this case, the `color` argument is interpreted as a variable with only one value (which is "blue" in this case).
+**(Answer)** The `color` argument is not in the correct place. The `color` argument is included inside the `mapping` argument so it is treated as an aesthetic, which receives a variable (like we used `class` as argument in previous exercise). In this case, the `color` argument is interpreted as a variable with only one value (which is 'blue' in this case).
 
 If the goal is to plot all these points using blue, the correct code is:
 
 ```{r eval = TRUE}
-ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+ggplot(data = mpg) + geom_point(mapping = aes(x = displ, y = hwy), color = 'blue')
 ```
 
 
@@ -580,7 +580,7 @@ Now, let's plot overriding the default position adjustment:
 
 ```{r eval = TRUE}
 ggplot(data = mpg, aes(x = drv, y = hwy, color = class)) +
-  geom_boxplot(position = "identity")
+  geom_boxplot(position = 'identity')
 ```
 
 In this last plot, the different classes from `drv` are not side by side anymore, they are overlapped! This is because now the `geom_boxplot()` is using `identity` as position adjustment insted of `dodge`. 
@@ -865,4 +865,91 @@ And the flights that travelled the shortest distance, just use `arrange()` with 
 ```{r eval = TRUE}
 arrange(flights, distance)
 ```
+
+## 5.4.1 Exercises
+
+### Exercise 1 
+> Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
+
+**(Answer)** The most basic way to select variables is by selecting by their names:
+
+```{r eval = TRUE}
+select(flights, dep_time, dep_delay, arr_time, arr_delay)
+```
+
+You also can use some help functions (like `starts_with()` and `matches()`) to select these variables:
+
+```{r eval = TRUE}
+select(flights, starts_with('de'), starts_with('ar'))
+```
+
+```{r eval = TRUE}
+select(flights, starts_with('dep'), starts_with('arr'))
+```
+
+```{r eval = TRUE}
+select(flights, starts_with('dep_'), starts_with('arr_'))
+```
+
+Or if you want to use regex, which is much more awesome:
+
+```{r eval = TRUE}
+select(flights, matches('^(dep|arr).*(time|delay)$'))
+```
+
+Which `^` means that the string must start with `dep` OR `arr` and `$` means that the string must end with `time` OR `delay` (`.` can be any character and `*` means that any character (`.`) can repeat many times).
+
+### Exercise 2
+> What happens if you include the name of a variable multiple times in a `select()` call?
+
+**(Answer)** Let's try:
+
+```{r eval = TRUE}
+select(flights, dep_time, dep_time)
+```
+
+```{r eval = TRUE}
+select(flights, dep_time, dep_time)
+```
+
+As you can see, we got the same result for both. So, `select()` function ignores the repeated variables.
+
+### Exercise 3
+> What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
+
+```{r eval = TRUE}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+
+**(Answer)** Let's try:
+
+```{r eval = TRUE}
+select(flights, one_of(vars))
+```
+
+With `one_of` you can use vectors (vector `vars` in this particular example) with `select()` to select particular variables.
+
+### Exercise 4
+> Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+
+```{r eval = TRUE}
+select(flights, contains("TIME"))
+```
+
+**(Answer)** I am not surprised at all. `contains()` function uses downcase as default (ignore uppercase). In most of datasets the variable names are all downcase so I think is a nice default definition. However, if you want to change this default instead of to change (downcase) all the variable names from your dataset, you can use `select()` like in this code below:
+
+```{r eval = TRUE}
+select(flights, contains("TIME", ignore.case = FALSE))
+```
+
+As you can see, there is no results when we use `select()` with case sensitive (considering uppercase).
+
+
+
+
+
+
+
+
+
 
