@@ -1,12 +1,13 @@
 ---
-title: 'R for Data Science - Solutions Manual'
+title: "R for Data Science - Solutions Manual"
 author: ['Jonathan Mendes de Almeida', 'jonathanalmd@gmail.com', 'jonathan@aluno.unb.br','@jonyddev (github)']
 lang: en
-date: '`r format(Sys.time(), '%b %d, %Y')`'
+date: "`r format(Sys.time(), '%b %d, %Y')`"
 output:
     pdf_document:
       latex_engine: xelatex
 ---
+
 
 Solutions to the exercises in [**R for Data Science (Garrett Grolemund & Hadley Wickham)**](http://r4ds.had.co.nz/index.html). The individual R files are available in my github - [**@jonyddev**](https://github.com/jonyddev) - repository called [**R4DataScience-Solutions**](https://github.com/jonyddev/R4DataScience-Solutions). _If you have any questions about my answers to these exercises do not hesitate to enter in contact with me_.
 
@@ -975,6 +976,52 @@ Cool!
 select(flights, dep_time, sched_dep_time, dep_delay)
 ```
 At first time you can think that`dep_time` minus `dep_delay` is equal to `sched_dep_time`. However this is not true for all our entries (thanks to time zones, again). 
+
+### Exercise 4
+> Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for `min_rank()`.
+
+**(Answer)** First, let's order by dep_delay (from maximum delay to minimum delay):
+
+```{r eval = TRUE}
+arrange(flights, min_rank(-dep_delay))
+```
+
+Cool, right? As you can see, to order from maximum to minimum delay you should use `min_rank()` with negative `dep_delay`.
+
+Now, to find the 10 most delayed flights we should filter by delay 
+
+```{r eval = TRUE}
+arrange(flights, min_rank(-dep_delay)) %>%
+  filter(min_rank(-dep_delay) <= 10)
+```
+
+However, for this situation is better to create a new column to store the delay ranking and then use arrange and filter functions:
+
+```{r eval = TRUE}
+mutate(flights, rank_dep_delay = min_rank(-dep_delay)) %>%
+  arrange(rank_dep_delay) %>%
+  filter(rank_dep_delay <= 10)
+```
+
+### Exercise 5
+> What does 1:3 + 1:10 return? Why?
+
+**(Answer)** Return the sum of two vectors (1 to 3 and 1 to 10):
+
+```{r eval = TRUE}
+1:3 + 1:10
+```
+
+However, this is not a smart thing to do. As you can see in the warning message, the two objects are not in the same size/the size of vector with more elements is not divisible by the size of the vector with less elements. For a situation like that (vectors with different sizes), the shorter vector is going to be reused. So, what this code is doing is: `(1+1, 2+,2, 3+3, 4+1, 5+2, 6+3, 7+1, 8+2, 9+3, 10+1)`.
+
+### Exercise 6
+> What trigonometric functions does R provide?
+
+**(Answer)** The answer for this question is in helper for trigonometric functions (`help('Trig')`).
+
+
+
+
 
 
 
