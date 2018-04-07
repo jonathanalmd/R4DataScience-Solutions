@@ -996,6 +996,14 @@ top10_delay_flights <- filter(rank_delay_flights, min_rank(-dep_delay) <= 10)
 top10_delay_flights
 ```
 
+However, for this situation is better to create a new column to store the delay ranking and then use arrange and filter functions:
+
+```{r eval = TRUE}
+rank_delay_flights <- mutate(flights, rank_dep_delay = min_rank(-dep_delay))
+rank_delay_flights <- arrange(rank_delay_flights, rank_dep_delay)
+top10_delay_flights <- filter(rank_delay_flights, rank_dep_delay <= 10)
+top10_delay_flights
+```
 
 ### Exercise 5
 > What does 1:3 + 1:10 return? Why?
