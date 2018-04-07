@@ -948,7 +948,7 @@ As you can see, there is no results when we use `select()` with case sensitive (
 
 ## 5.5.2 Exercises
 
-### Exercsise 1
+### Exercise 1
 > Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
 
 **(Answer)** Finally: fix this horrible representation. 
